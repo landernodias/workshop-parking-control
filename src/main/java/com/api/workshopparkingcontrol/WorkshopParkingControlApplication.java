@@ -13,8 +13,4 @@ public class WorkshopParkingControlApplication {
 		SpringApplication.run(WorkshopParkingControlApplication.class, args);
 	}
 
-	@GetMapping("/")
-	public String index() {
-		return "Olá Mundo";
-	}
 }
