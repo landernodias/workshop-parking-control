@@ -15,7 +15,7 @@ public class DateConfig { //formatar data globalmente para toda aplicação
     public static final String DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
     public static LocalDateTimeSerializer LOCAL_DATETIME_SERIALIZER = new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DATETIME_FORMAT)); //seta o padrão da data
 
-    @Bean 
+    @Bean
     @Primary
     public ObjectMapper objectMapper(){
         JavaTimeModule module = new JavaTimeModule();
