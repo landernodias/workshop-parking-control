@@ -12,6 +12,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 //@EnableWebSecurity //desliga a configuração default do spring security (leva em conta as configuração personalizadas definida na classe)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    final UserDetailsServiceImpl userDetailsService;
+
+    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception { //configura e define o que sera utilizado no spring security
         http
@@ -23,12 +29,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable();
     }
 
-    @Override
+    @Override //não é mais uma autenticação em memoria e sim via banco de dados
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("nelcione")
-                .password(passwordEncoder().encode("123456789"))
-                .roles("ADMIN");
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
+
     }
     
     @Bean
